@@ -47,20 +47,21 @@ samtools sort -O sam -O sorted_input.sam input.sam
 
 High Level Functions:
 
-`def fivePrimeFinder(pos: int, cigar: str, reverse: bool) -> int:
+```python
+def fivePrimeFinder(pos: int, cigar: str, reverse: bool) -> int:
     """
     Determines the 5′ start position for a read.
     Accounts for soft clipping, deletions, skipped regions, and strand.
     """
     for + strands: If there is soft clipping (S) at the start then subtract that length
     for - strands: Add up all reference consuming ops (M,N,D) + any soft clipping at the end
-    Ignore insertions (I)`
+    Ignore insertions (I)
 
-`def isReverse(flag: int) -> bool:
+```def isReverse(flag: int) -> bool:
     """
     Returns True if the SAM FLAG indicates a reverse strand.
     """
-    return (flag & 16) == 16`
+    return (flag & 16) == 16```
     
 `def getUMI(qname: str) -> str:
     """
