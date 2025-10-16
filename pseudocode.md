@@ -57,15 +57,15 @@ def fivePrimeFinder(pos: int, cigar: str, reverse: bool) -> int:
     for - strands: Add up all reference consuming ops (M,N,D) + any soft clipping at the end
     Ignore insertions (I)
 
-```def isReverse(flag: int) -> bool:
+def isReverse(flag: int) -> bool:
     """
     Returns True if the SAM FLAG indicates a reverse strand.
     """
-    return (flag & 16) == 16```
+    return (flag & 16) == 16
     
-`def getUMI(qname: str) -> str:
+def getUMI(qname: str) -> str:
     """
     Extracts the UMI from the SAM QNAME field.
     """
-    return qname.split(":")[-1] `
+    return qname.split(":")[-1]
 
