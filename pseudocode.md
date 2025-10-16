@@ -13,7 +13,9 @@ Pseudocode:
 1.Preprocessing:
 Sort SAM file by chromosome and position using samtools:
 samtools sort -O sam -O sorted_input.sam input.sam
+
 2. Load 96 known UMIS into a set
+   
 3. Initialize:
 -prev_chrom = NONE (keeps track of chromomsome of previous read processed)
 -seen_dict = {} (stores every uniq combination of chrom, strand, start position, and umi. ex: seen_dict = {
@@ -21,6 +23,7 @@ samtools sort -O sam -O sorted_input.sam input.sam
    ('chr1', '-', 206, 'TTGACCTA'): True
 }
 -open input_sam as read and output_sam as write
+
 4. For each line in input_sam:
 -If line starts with '@' -> write to output_sam (header)
 -Else:
@@ -39,6 +42,7 @@ samtools sort -O sam -O sorted_input.sam input.sam
 -If RNAME != prev_chrom:
   -Reset seen_dict
   -prev_chrom = RNAME
+
 5. Close files
 
 High Level Functions:
