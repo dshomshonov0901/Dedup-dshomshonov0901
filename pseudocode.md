@@ -10,18 +10,21 @@ Constraints: Millions of reads, account for soft clupping, ignore unknown UMIs, 
 
 Pseudocode:
 
-1.Preprocessing:
+1. Preprocessing:
 Sort SAM file by chromosome and position using samtools:
 samtools sort -O sam -O sorted_input.sam input.sam
 
 2. Load 96 known UMIS into a set
    
 3. Initialize:
+   
 -prev_chrom = NONE (keeps track of chromomsome of previous read processed)
+
 -seen_dict = {} (stores every uniq combination of chrom, strand, start position, and umi. ex: seen_dict = {
    ('chr1', '+', 105, 'GAACAGGT'): True,
    ('chr1', '-', 206, 'TTGACCTA'): True
 }
+
 -open input_sam as read and output_sam as write
 
 4. For each line in input_sam:
