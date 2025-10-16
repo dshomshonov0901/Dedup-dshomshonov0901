@@ -49,7 +49,7 @@ samtools sort -O sam -O sorted_input.sam input.sam
     - write line to output_sam
     - add key to seen dict
     
-    Else:
+   Else:
       skip (this is duplicate!)
       
 -If RNAME != prev_chrom:
