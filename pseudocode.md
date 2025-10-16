@@ -28,25 +28,35 @@ samtools sort -O sam -O sorted_input.sam input.sam
 -open input_sam as read and output_sam as write
 
 4. For each line in input_sam:
+   
 -If line starts with '@' -> write to output_sam (header)
+
 -Else:
+
   a. Parse QNAME, FLAG, RNAME, POS, CIGAR
+  
   b. Extract UMI from QNAME with getUMI function
       - If UMI is not in known set then skip read
+      
   c. Determine strand: rev = TRUE if FLAG &16 == 16 else FALSE
+  
   d. Calculate 5' position using fivePrimeFinder function
      - five_prime = fivePrimeFinder(POS, CIGAR, rev)
+     
   e. key = (RNAME, rev, five_prime, UMI)
+  
   f. if key not in seen_dict:
     - write line to output_sam
     - add key to seen dict
+    
     Else:
       skip (this is duplicate!)
+      
 -If RNAME != prev_chrom:
   -Reset seen_dict
   -prev_chrom = RNAME
 
-5. Close files
+6. Close files
 
 High Level Functions:
 
