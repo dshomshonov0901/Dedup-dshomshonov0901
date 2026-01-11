@@ -1,4 +1,4 @@
-The first two reads are identical across chromosome, strand, position, and UMI.
+The first two reads are identical across chromosome, strand, position, and UMI - only one is retained
 
 The third read has same UMI but reverse strand (FLAG 16) and different CIGAR (soft clipping), producing a different adjusted 5′ start → retained.
 
