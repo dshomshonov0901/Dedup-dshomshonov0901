@@ -23,8 +23,8 @@ def fivePrimeFinder(pos: int, cigar: str, reverse: bool) -> int:
 
     aligned_len = 0
     soft_clip_end = 0
-    for i, (length, op) in enumerate(cigar_ops):
-        # slightly expanded the reference-consuming ops
+    for i, (length, op) in enumerate(cigar_ops):        # slightly expanded the reference-consuming ops
+
         if op in ('M', 'D', 'N', '=', 'X'):
             aligned_len += length
         elif op == 'S' and i == len(cigar_ops) - 1:
@@ -51,7 +51,11 @@ def dedup(SAM_in, SAM_out, UMI_file):
     invalid_umi_count = 0
     duplicate_count = 0
 
+<<<<<<< HEAD
     # CHANGED: use a set for UMI checks
+=======
+    # CHANGED: use a set for O(1) membership checks (kept variable name)
+>>>>>>> 572a5d5 (umis as set and soft clipping adjusted)
     with open(UMI_file) as f:
         umi_list = set(line.strip() for line in f if line.strip())
 
@@ -108,5 +112,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 572a5d5 (umis as set and soft clipping adjusted)
