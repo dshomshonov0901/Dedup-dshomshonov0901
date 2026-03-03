@@ -13,13 +13,19 @@ def fivePrimeFinder(pos: int, cigar: str, reverse: bool) -> int:
             cigar_ops.append((int(num), char))
             num = ''
 
+    # NEW: account for left soft clipping on forward strand
+    soft_clip_start = 0
+    if cigar_ops and cigar_ops[0][1] == 'S':
+        soft_clip_start = cigar_ops[0][0]
+
     if not reverse:
-        return pos 
+        return pos - soft_clip_start
 
     aligned_len = 0
     soft_clip_end = 0
     for i, (length, op) in enumerate(cigar_ops):
-        if op in ('M', 'D', 'N'):
+        # slightly expanded the reference-consuming ops
+        if op in ('M', 'D', 'N', '=', 'X'):
             aligned_len += length
         elif op == 'S' and i == len(cigar_ops) - 1:
             soft_clip_end = length
@@ -45,8 +51,9 @@ def dedup(SAM_in, SAM_out, UMI_file):
     invalid_umi_count = 0
     duplicate_count = 0
 
+    # CHANGED: use a set for UMI checks
     with open(UMI_file) as f:
-        umi_list = [line.strip() for line in f if line.strip()]
+        umi_list = set(line.strip() for line in f if line.strip())
 
     with open(SAM_in) as in_sam, open(SAM_out, "w") as out_sam:
         for line in in_sam:
@@ -84,6 +91,7 @@ def dedup(SAM_in, SAM_out, UMI_file):
 
 
 
+
 def main():
     parser = argparse.ArgumentParser(description="Deduplication of single-end reads")
     parser.add_argument("-f", required=True, help="designates absolute file path to sorted sam file")
@@ -100,4 +108,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
